@@ -1,6 +1,6 @@
 package org.example.Chapter3;
 
-import org.example.entity.Member;
+import org.example.entity.Chapter3.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
