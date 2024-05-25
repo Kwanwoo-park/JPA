@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
     <persistence-unit name="jpa">
-        <class>org.example.entity.Board</class>
-        <class>org.example.entity.Chapter5.Member</class>
-        <class>org.example.entity.Chapter5.Team</class>
+        <class>org.example.entity.Chapter6.Member</class>
+        <class>org.example.entity.Chapter6.Product</class>
+        <class>org.example.entity.Chapter6.Orders</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
             <property name="javax.persistence.jdbc.user" value="sa"/>
