@@ -1,11 +1,20 @@
 package org.example.entity.Chapter10;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "Member")
+@NamedQueries({
+        @NamedQuery(
+                name = "Member.findByUsername",
+                query = "select m from Member m where m.username = :username"
+        ),
+        @NamedQuery(
+                name = "Member.count",
+                query = "select count(m) from Member m"
+        )
+})
 public class Member {
     @Id @GeneratedValue
     private Long id;
@@ -13,6 +22,12 @@ public class Member {
     @Column(name = "name")
     private String username;
     private int age;
+
+    @ManyToOne
+    private Team team;
+
+    @OneToMany
+    private List<Order> orders = new ArrayList<>();
 
     public Long getId() {
         return id;

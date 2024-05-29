@@ -1,5 +1,12 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
     id 'java'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group 'org.example'
@@ -11,9 +18,32 @@ repositories {
 
 dependencies {
     implementation 'org.hibernate:hibernate-entitymanager:5.6.15.Final'
+    implementation 'org.hibernate:hibernate-jpamodelgen:6.3.1.Final'
+    annotationProcessor('org.hibernate.orm:hibernate-jpamodelgen:6.3.1.Final')
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
     runtimeOnly 'com.h2database:h2:2.2.224'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+
+sourceSets {
+    main.java.srcDir querydslDir
+}
+
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
 }
 
 test {
