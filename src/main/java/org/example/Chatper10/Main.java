@@ -1,7 +1,9 @@
 package org.example.Chatper10;
 
+import com.querydsl.jpa.impl.JPAQuery;
 import org.example.DTO.UserDTO;
 import org.example.entity.Chapter10.Member;
+import org.example.entity.Chapter10.QMember;
 import org.example.entity.Chapter10.Team;
 import org.example.entity.Chapter6.Product;
 
@@ -165,5 +167,13 @@ public class Main {
         if (teamname != null) query.setParameter("teamname", teamname);
 
         List<Member> resultList = query.getResultList();
+    }
+
+    static void queryDSL() {
+        JPAQuery query = new JPAQuery(em);
+        QMember qMember = new QMember("m");
+        query.from(qMember)
+                .where(qMember.username.eq("회원1"))
+                .orderBy(qMember.username.desc());
     }
 }
